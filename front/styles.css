@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #222;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body > header{
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 20px 0;
+}
+
+#selections_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    gap: 40px;
+}
+
+#selections_box > select{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+    outline: none;
+    border-radius: 5px;
+}
+
+.container{
+    display: none;
+    width: 80%;
+    height: 700px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 5px;
+}
+
+#tela_inserir{
+    display: flex;
+    background-color: #444;
+    
+}

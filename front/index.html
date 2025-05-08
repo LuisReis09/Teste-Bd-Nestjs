@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste BD</title>
+
+    <script src="scripts.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>Teste de Conexão com o Banco de Dados</header>
+    
+    <div id="selections_box">
+        <select id="tabela" onchange="carregarDados()">
+            <option value="clientes">Clientes</option>
+            <option value="produtos">Produtos</option>
+            <option value="pedidos">Pedidos</option>
+        </select>
+    
+        <select id="acao" onchange="carregarDados()">
+            <option value="inserir">Inserir</option>
+            <option value="atualizar">Atualizar</option>
+            <option value="deletar">Deletar</option>
+            <option value="listar">Listar</option>
+        </select>
+    </div>
+
+    <div id="tela_inserir" class="container">
+        <h2>Inserir Dados</h2>
+        
+        
+        
+    </div>
+
+    <div id="tela_atualizar" class="container">
+        <h2>Atualizar Dados</h2>
+    </div>
+
+    <div id="tela_deletar" class="container">
+        <h2>Deletar Dados</h2>
+        
+    </div>
+
+    <div id="tela_listar" class="container">
+        <h2>Listar Dados</h2>
+    </div>
+    
+</body>
+</html>
