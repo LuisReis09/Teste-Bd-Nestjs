@@ -2,6 +2,7 @@ var opcao_tabela = document.getElementById('tabela');
 var opcao_acao   = document.getElementById('acao');
 var telas        = [...document.querySelectorAll('.container')];
 var tabela_ativa;
+var filtrar      = document.getElementById('filtrar');
 
 function carregarDiv(acao) {
     telas.forEach(tela => {
@@ -37,40 +38,38 @@ function carregarDados() {
     switch(acao){
         case 'listar':
             limparTabela("tela_listar");
-            fetch(`http://localhost:4000/${tabela}/getAll`)
+            fetch(`http://localhost:3000/${tabela}/colunas`)
             .then(response => response.json())
             .then(data => {
-                var tabela = document.getElementById("tela_listar");
-                if (data.length == 0) {
-                    alert("Nenhum dado encontrado!");
-                }
-
-                let colunas = Object.keys(item[0]);
-
-                // Insere a linha de cabecalho das colunas
-                let cabecalho = document.createElement('div');
-                cabecalho.className = 'linha_cabecalho';
-                colunas.forEach(coluna => {
-                    let cabecalho_coluna = document.createElement('div');
-                    cabecalho_coluna.className = 'celula_cabecalho';
-                    cabecalho_coluna.innerText = coluna;
-                    cabecalho.appendChild(cabecalho_coluna);
-                })
-                tabela.appendChild(cabecalho);
-
-                data.forEach(item => {
-                    let linha   = document.createElement('div');
-                    let valores = Object.values(item);
-
-                    linha.className = 'linha_dados';
-                    valores.forEach(valor => {
-                        let celula = document.createElement('div');
-                        celula.className = 'celula_dados';
-                        celula.innerText = valor;
-                        linha.appendChild(celula);
-                    })
+                console.log(data);
+                var cabecalho = document.createElement('div');
+                cabecalho.classList.add('linha_cabecalho');
+                data.colunas.forEach(coluna => {
+                    var colunaCabecalho = document.createElement('div');
+                    colunaCabecalho.classList.add('coluna_cabecalho');
+                    colunaCabecalho.innerText = coluna;
+                    cabecalho.appendChild(colunaCabecalho);
                 });
+                tabela_ativa.appendChild(cabecalho);
             })
+            .then(() => {
+                fetch(`http://localhost:3000/${tabela}/listar`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    data.forEach(linha => {
+                        var linhaDados = document.createElement('div');
+                        linhaDados.classList.add('linha_dados');
+                        Object.values(linha).forEach(valor => {
+                            var colunaDados = document.createElement('div');
+                            colunaDados.classList.add('coluna_dados');
+                            colunaDados.innerText = valor;
+                            linhaDados.appendChild(colunaDados);
+                        });
+                        tabela_ativa.appendChild(linhaDados);
+                    });
+                });
+            });
 
     }
 }
@@ -88,3 +87,66 @@ function limparTabela(tela) {
         linha.remove();
     });
 }
+
+filtrar.addEventListener('click', () => {
+    let tipo_filtro = document.getElementById('tipo_filtro').value;
+    let valor_filtro = document.getElementById('valor_filtro').value;
+
+    if (tipo_filtro == 'idade'){
+        fetch(`http://localhost:3000/${opcao_tabela.value}/listarPorIdade/${valor_filtro}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            limparTabela("tela_listar");
+            var cabecalho = document.createElement('div');
+            cabecalho.classList.add('linha_cabecalho');
+            Object.keys(data[0]).forEach(coluna => {
+                var colunaCabecalho = document.createElement('div');
+                colunaCabecalho.classList.add('coluna_cabecalho');
+                colunaCabecalho.innerText = coluna;
+                cabecalho.appendChild(colunaCabecalho);
+            });
+            tabela_ativa.appendChild(cabecalho);
+
+            data.forEach(linha => {
+                var linhaDados = document.createElement('div');
+                linhaDados.classList.add('linha_dados');
+                Object.values(linha).forEach(valor => {
+                    var colunaDados = document.createElement('div');
+                    colunaDados.classList.add('coluna_dados');
+                    colunaDados.innerText = valor;
+                    linhaDados.appendChild(colunaDados);
+                });
+                tabela_ativa.appendChild(linhaDados);
+            });
+        });
+    }else{
+        fetch(`http://localhost:3000/${opcao_tabela.value}/listarPorNome/${valor_filtro}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            limparTabela("tela_listar");
+            var cabecalho = document.createElement('div');
+            cabecalho.classList.add('linha_cabecalho');
+            Object.keys(data[0]).forEach(coluna => {
+                var colunaCabecalho = document.createElement('div');
+                colunaCabecalho.classList.add('coluna_cabecalho');
+                colunaCabecalho.innerText = coluna;
+                cabecalho.appendChild(colunaCabecalho);
+            });
+            tabela_ativa.appendChild(cabecalho);
+
+            data.forEach(linha => {
+                var linhaDados = document.createElement('div');
+                linhaDados.classList.add('linha_dados');
+                Object.values(linha).forEach(valor => {
+                    var colunaDados = document.createElement('div');
+                    colunaDados.classList.add('coluna_dados');
+                    colunaDados.innerText = valor;
+                    linhaDados.appendChild(colunaDados);
+                });
+                tabela_ativa.appendChild(linhaDados);
+            });
+        });
+    }
+});

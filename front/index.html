@@ -44,6 +44,25 @@
 
     <div id="tela_listar" class="container">
         <h2>Listar Dados</h2>
+
+        
+        <div class="filtros">
+            <div class="filtro">
+                <label for="tipo_filtro">Filtrar por:</label>
+                <select id="tipo_filtro">
+                    <option value="idade">Idade</option>
+                    <option value="nome">Nome</option>
+                </select>
+            </div>
+
+            <div class="filtro">
+                <label for="valor_filtro">Filtro:</label>
+                <input type="text" id="valor_filtro" placeholder="Procurar por...">
+            </div>
+
+
+            <button id="filtrar">Filtrar</button>
+        </div>
     </div>
     
 </body>

@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
-export class CriarClienteDto {
+export class CriarProdutoDto {
 
     id?: number;
 
@@ -12,11 +12,16 @@ export class CriarClienteDto {
     })
     nome: string;
 
+    descricao?: string;
+
     @IsNotEmpty({
-        message: 'A idade não pode ser vazia'
+        message: 'A valor não pode ser vazio'
     })
     @IsNumber({}, {
-        message: 'A idade deve ser um número'
+        message: 'A valor deve ser um número'
     })
-    idade: number;
+    valor: number;
+
+    quantidade?: number;
+    categoria?: string;
 }

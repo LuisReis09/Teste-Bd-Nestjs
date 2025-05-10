@@ -39,14 +39,73 @@ body > header{
     display: none;
     width: 80%;
     height: 700px;
-    justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin: auto;
     border-radius: 5px;
 }
 
+.filtros{
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 20px 0 40px 0;
+}
+
+.filtro{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filtro > input, .filtro > select{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+    outline: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#filtrar{
+    width: 100px;
+    height: 40px;
+    align-self: bottom;
+    background-color: #666;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+
 #tela_inserir{
     display: flex;
+}
+
+.linha_cabecalho, .linha_dados{
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    max-height: 50px;
+    width: 100%;
     background-color: #444;
-    
+}
+
+.linha_dados{
+    background-color: #222;
+}
+
+.linha_cabecalho > div, .linha_dados > div{
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    height: 100%;
+    line-height: 50px;
+    border: 1px solid white;
 }
