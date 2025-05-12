@@ -1,0 +1,50 @@
+.container_atualizar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.campos_para_atualizar{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
+    gap: 20px;
+    width: max-content;
+}
+
+.campo_atualizar{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.campo_atualizar > input{
+    width: 300px;
+    height: 50px;
+    outline: none;
+    background-color: #333;
+    color: #eee;
+    border: none;
+    padding: 0 15px 0 15px;
+}
+
+.atualizar_button{
+    background-color: #444;
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+    height: 50px;
+    width: 100px;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.atualizar_button:hover{
+    background-color: #555;
+}

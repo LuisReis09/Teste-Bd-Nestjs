@@ -10,7 +10,7 @@ export class ClienteController {
 
     @Get("/colunas")
     async colunas() {
-        return {colunas: ["id", "nome", "idade"]};
+        return await this.clienteService.listarColunas();
     }
 
 

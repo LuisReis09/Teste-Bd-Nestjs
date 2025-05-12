@@ -88,5 +88,9 @@ export class ClienteService {
         }));
     }
 
+    async listarColunas() {
+        let cols: [] = await this.prisma.$queryRaw`SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Cliente'`;
+        return cols.map((col: any) => col.column_name);
+    }
 
 }

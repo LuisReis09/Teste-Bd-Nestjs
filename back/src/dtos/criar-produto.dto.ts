@@ -23,5 +23,4 @@ export class CriarProdutoDto {
     valor: number;
 
     quantidade?: number;
-    categoria?: string;
 }

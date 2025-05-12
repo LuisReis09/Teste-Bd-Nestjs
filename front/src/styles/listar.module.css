@@ -1,0 +1,35 @@
+.container_listar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.container_listar > table > thead > tr > th{
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background-color: #444;
+    border: 2px solid #ddd;
+}
+
+.container_listar > table > tbody > tr > td{
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+.container_listar > table > tbody > tr:nth-child(odd) > td{
+    background-color: #333;
+}
+
+.container_listar > table > tbody{
+    border: 2px solid #ddd;
+}
+
+.container_listar > table{
+    overflow-y: auto;
+}
