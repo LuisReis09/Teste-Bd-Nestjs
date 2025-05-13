@@ -1,6 +1,7 @@
 import { Controller, Param } from '@nestjs/common';
-import { Get, Post } from '@nestjs/common';
+import { Get, Post, Body } from '@nestjs/common';
 import { ProdutoService } from './produto.service';
+import { CriarProdutoDto } from 'src/dtos/criar-produto.dto';
 
 @Controller('produtos')
 export class ProdutoController {
@@ -17,14 +18,25 @@ export class ProdutoController {
         return await this.produtoService.listarProdutos();
     }
 
-    @Get("/criar/:nome/:descricao/:valor/:quantidade")
+    @Get("/criar/:nome/:descricao/:preco/:quantidade")
     async criarProduto(
         @Param('nome') nome: string, 
         @Param('descricao') descricao: string, 
-        @Param('valor') valor: number, 
+        @Param('preco') preco: number, 
         @Param('quantidade') quantidade: number
     ) {
-        return await this.produtoService.criarProduto({ nome, descricao, valor, quantidade });
+        return await this.produtoService.criarProduto({ nome, descricao, preco, quantidade });
+    }
+
+    @Post("/criar")
+    async criarProdutoPost(@Body() produto: any) {
+        console.log(produto);
+        produto.preco = Number(produto.preco);
+        produto.quantidade = Number(produto.quantidade);
+        produto.descricao = produto.descricao ?? "";
+        produto.nome = produto.nome ?? "";
+
+        return await this.produtoService.criarProduto(produto);
     }
 
     @Get("/deletar/:id")
@@ -32,15 +44,15 @@ export class ProdutoController {
         return await this.produtoService.deletarProduto(id);
     }
 
-    @Get("/atualizar/:id/:nome/:descricao/:valor/:quantidade")
+    @Get("/atualizar/:id/:nome/:descricao/:preco/:quantidade")
     async atualizarProduto(
         @Param('id') id: number, 
         @Param('nome') nome: string,
         @Param('descricao') descricao: string,
-        @Param('valor') valor: number,
+        @Param('preco') preco: number,
         @Param('quantidade') quantidade: number
     ) {
-        return await this.produtoService.atualizarProduto(id, { nome, descricao, valor, quantidade });
+        return await this.produtoService.atualizarProduto(id, { nome, descricao, preco, quantidade });
     }
 
     @Get("/listarPorId/:id")

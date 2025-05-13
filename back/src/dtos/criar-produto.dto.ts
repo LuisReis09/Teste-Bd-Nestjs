@@ -20,7 +20,7 @@ export class CriarProdutoDto {
     @IsNumber({}, {
         message: 'A valor deve ser um número'
     })
-    valor: number;
+    preco: number;
 
     quantidade?: number;
 }

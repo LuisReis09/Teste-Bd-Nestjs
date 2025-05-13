@@ -16,9 +16,9 @@ export class ClienteController {
 
     // Versão com DTO, utilizada em requisições POST
     @Post("/criar")
-    async criarCliente(@Body() params: CriarClienteDto) {
-        const { nome, idade } = params;
-        return await this.clienteService.criarCliente({ nome, idade });
+    async criarCliente(@Body() params: any) {
+        params['idade'] = Number(params.idade);
+        return await this.clienteService.criarCliente(params);
     }
 
     // Versão com parâmetros de URL ou interfaces, utilizada em requisições GET

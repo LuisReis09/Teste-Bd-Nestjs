@@ -8,59 +8,101 @@ export class ProdutoService {
     constructor(private prisma: PrismaService) {}
 
     async criarProduto(params: CriarProdutoDto) {
-        const { nome, descricao, valor, quantidade} = params;
-        return await this.prisma.produto.create({
+        const { nome, descricao, preco, quantidade} = params;
+        let ped = await this.prisma.produto.create({
             data: {
                 nome,
                 descricao,
-                preco: valor,
-                quantidade: quantidade ?? 1
+                quantidade: quantidade ?? 1,
+                preco: preco,
+            }
+        });
+
+        return {
+            ...ped,
+            id: ped.id.toString(),
+        }
+    }
+
+    async listarProdutos() {
+        let prods = await this.prisma.produto.findMany();
+
+        return prods.map((p: any) => {
+            return {
+                ...p,
+                id: p.id.toString(),
             }
         });
     }
 
-    async listarProdutos() {
-        return await this.prisma.produto.findMany();
-    }
-
     async deletarProduto(id: number) {
-        return await this.prisma.produto.delete({
+        let prod = await this.prisma.produto.delete({
             where: {
                 id
             }
         });
+
+        return {
+            ...prod,
+            id: prod.id.toString(),
+        }
     }
 
     async atualizarProduto(id: number, params: CriarProdutoDto) {
-        const { nome, descricao, valor, quantidade} = params;
-        return await this.prisma.produto.update({
+        const { nome, descricao, preco, quantidade} = params;
+        let prod = await this.prisma.produto.update({
             where: {
                 id
             },
             data: {
                 nome,
                 descricao,
-                preco: valor,
+                preco: preco,
                 quantidade
             }
         });
+
+        return {
+            ...prod,
+            id: prod.id.toString(),
+        }
     }
 
     async buscarProdutoPorId(id: number) {
-        return await this.prisma.produto.findUnique({
+        let prods = await this.prisma.produto.findUnique({
             where: {
                 id
             }
         });
+
+        if(!prods) {
+            return [];
+        }
+
+        return {
+            ...prods,
+            id: prods.id.toString(),
+        }
     }
 
     async buscarProdutoPorNome(nome: string) {
-        return await this.prisma.produto.findMany({
+        let prod = await this.prisma.produto.findMany({
             where: {
                 nome: {
                     contains: nome,
                     mode: 'insensitive'
                 }
+            }
+        });
+
+        if(!prod) {
+            return [];
+        }
+
+        return prod.map((p: any) => {
+            return {
+                ...p,
+                id: p.id.toString(),
             }
         });
     }

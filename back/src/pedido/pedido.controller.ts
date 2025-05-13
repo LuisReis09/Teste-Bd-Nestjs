@@ -1,6 +1,7 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
-import { Get } from '@nestjs/common';
+import { Get, Param } from '@nestjs/common';
+import { CriarPedidoDto } from 'src/dtos/criar-pedido.dto';
 
 @Controller('pedidos')
 export class PedidoController {
@@ -20,6 +21,15 @@ export class PedidoController {
             quantidade_total: quantidade,
             valor_total: valor_total
         });
+    }
+
+    @Post("/criar")
+    async criarPedidoPost(@Body() pedido: any) {
+        pedido.clienteId = Number(pedido.clienteId);
+        pedido.produtoId = Number(pedido.produtoId);
+        pedido.quantidade = Number(pedido.quantidade);
+        pedido.valor_total = Number(pedido.valor_total);
+        return this.pedidoService.criarPedido(pedido);
     }
 
     @Get("/listar")
@@ -57,4 +67,8 @@ export class PedidoController {
         return this.pedidoService.listarPedidosPorProduto(id);
     }
 
+    @Get("/verificar/:clienteId/:produtoId")
+    async verificarPedido(@Param('clienteId') clienteId: number, @Param('produtoId') produtoId: number) {
+        return this.pedidoService.verificarPedido(clienteId, produtoId);
+    }
 }

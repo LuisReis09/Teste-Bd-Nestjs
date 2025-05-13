@@ -29,6 +29,8 @@ export class PedidoService {
         return {
             ...ret,
             id: ret.id.toString(),
+            clienteId: ret.clienteId.toString(),
+            produtoId: ret.produtoId.toString(),
         }
     }
 
@@ -38,6 +40,8 @@ export class PedidoService {
         return ret.map(pedido => ({
             ...pedido,
             id: pedido.id.toString(),
+            clienteId: pedido.clienteId.toString(),
+            produtoId: pedido.produtoId.toString(),
         }));
     }
 
@@ -51,6 +55,8 @@ export class PedidoService {
         return {
             ...ret,
             id: ret.id.toString(),
+            clienteId: ret.clienteId.toString(),
+            produtoId: ret.produtoId.toString(),
         }
     }
 
@@ -79,6 +85,8 @@ export class PedidoService {
         return {
             ...ret,
             id: ret.id.toString(),
+            clienteId: ret.clienteId.toString(),
+            produtoId: ret.produtoId.toString(),
         }
     }
 
@@ -96,6 +104,8 @@ export class PedidoService {
         return {
             ...ret,
             id: ret.id.toString(),
+            clienteId: ret.clienteId.toString(),
+            produtoId: ret.produtoId.toString(),
         }
     }
 
@@ -114,6 +124,8 @@ export class PedidoService {
         return ret.map(pedido => ({
             ...pedido,
             id: pedido.id.toString(),
+            clienteId: pedido.clienteId.toString(),
+            produtoId: pedido.produtoId.toString(),
         }));
     }
 
@@ -132,6 +144,8 @@ export class PedidoService {
         return ret.map(pedido => ({
             ...pedido,
             id: pedido.id.toString(),
+            clienteId: pedido.clienteId.toString(),
+            produtoId: pedido.produtoId.toString(),
         }));
     }
 
@@ -145,6 +159,33 @@ export class PedidoService {
         return ret.map(pedido => ({
             ...pedido,
             id: pedido.id.toString(),
+            clienteId: pedido.clienteId.toString(),
+            produtoId: pedido.produtoId.toString(),
         }));
+    }
+
+    async verificarPedido(clienteId: number, produtoId: number) {
+        let cliente = await this.prisma.cliente.findUnique({
+            where: {
+                id: clienteId
+            }
+        });
+
+        let produto = await this.prisma.produto.findUnique({
+            where: {
+                id: produtoId
+            }
+        });
+
+        if(!cliente || !produto){
+            return {
+                verificado: false
+            }
+        }
+
+        return {
+            verificado: true,
+            preco: produto.preco
+        }
     }
 }
